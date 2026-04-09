@@ -1,0 +1,6 @@
+# Markdown
+*.md
+
+# Environment files
+.env
+.env.*
