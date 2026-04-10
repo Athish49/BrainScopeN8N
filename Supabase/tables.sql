@@ -1,4 +1,4 @@
--- Pipeline configuration
+-- Pipeline configuration (single row)
 CREATE TABLE pipeline_config (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   domain TEXT NOT NULL,
@@ -61,6 +61,15 @@ CREATE TABLE paper_summaries (
   conflict_of_interest TEXT,
   generated_by TEXT,
   generated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Vector embeddings (NEW in v2 — replaces Weaviate entirely)
+CREATE TABLE paper_embeddings (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  paper_id UUID REFERENCES papers(id) ON DELETE CASCADE UNIQUE,
+  embedding vector(768),
+  content_text TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
 );
 
 -- Digest delivery log
